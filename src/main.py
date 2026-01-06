@@ -1,14 +1,18 @@
 from ultralytics import YOLO
+from constant import yolo_model, image_dir, image_outputs_dir
 
-def yolo_startup():
-    model = YOLO("yolov8n.pt")
-    results = model(
-        "D:/Personal Research/computer-vision-project/object-detection-using-yolo-pytorch/data/JPEGImages/2007_000033.jpg",
-        show=True
-    )
+from yolo import YoloPipeline
+
 
 def main():
-    yolo_startup()
+    yoloPipeline = YoloPipeline(
+        model_path=yolo_model, image_dir=image_dir, output_dir=image_outputs_dir
+    )
+    print("Starting predictions on dataset images...")
+    results = yoloPipeline.perform_predict_on_dataset()
+    print("Predictions completed.")
+    print(results)
+
 
 if __name__ == "__main__":
     main()
