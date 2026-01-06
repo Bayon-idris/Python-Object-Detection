@@ -1,5 +1,7 @@
 from ultralytics import YOLO
 import os
+import tkinter as tk
+from tkinter import filedialog
 
 
 class YoloPipeline:
@@ -35,3 +37,41 @@ class YoloPipeline:
 
             img_path = os.path.join(self.image_dir, img_file)
             self.predict_and_save(img_path)
+
+    def predict_from_upload_file_from_path(self, file_path):
+        if not os.path.isfile(file_path):
+            raise FileNotFoundError(f"The file {file_path} does not exist.")
+
+        print(f"Uploading file from path: {file_path}")
+        self.predict_and_save(file_path)
+
+
+    def select_image_via_dialog(self):
+        root = tk.Tk()
+        root.withdraw()  
+        file_path = filedialog.askopenfilename(
+            title="Select an image to test YOLO",
+            filetypes=[
+                ("Image files", "*.jpg *.jpeg *.png"),
+                ("All files", "*.*")
+            ]
+        )
+
+        root.destroy()
+        return file_path   
+
+    def main_dialog_tester(self):
+        while True:
+            path = self.select_image_via_dialog()
+
+            if not path:
+                print("No file selected. Exiting dialog tester.")
+                break
+
+            print(f"Selected image: {path}")
+
+            self.predict_from_upload_file_from_path(path)
+
+            again = tk.messagebox.askyesno("Continue", "Test another image?")
+            if not again:
+                break 

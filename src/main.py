@@ -5,14 +5,15 @@ from yolo import YoloPipeline
 
 
 def main():
-    yoloPipeline = YoloPipeline(
-        model_path=yolo_model, image_dir=image_dir, output_dir=image_outputs_dir
-    )
-    print("Starting predictions on dataset images...")
-    results = yoloPipeline.perform_predict_on_dataset()
-    print("Predictions completed.")
-    print(results)
-
+   yoloPipeline = YoloPipeline(
+      model_path=yolo_model, image_dir=image_dir, output_dir=image_outputs_dir
+   )
+   #  print("Starting predictions on dataset images...")
+   #  results = yoloPipeline.perform_predict_on_dataset()
+   #  print("Predictions completed.")
+   #  print(results)
+   print("Select an image to test YOLO model via dialog...")
+   yoloPipeline.main_dialog_tester()
 
 if __name__ == "__main__":
     main()
